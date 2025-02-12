@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { Gender, RiskFactors, MedicalConditions, UserInput } from '../types/types';
 import { getRecommendedScreenings, Screening } from '../data/screenings';
+import ScreeningInfoModal from './ScreeningInfoModal';
 
 const defaultRiskFactors: RiskFactors = {
   alcohol: false,
@@ -194,6 +195,9 @@ export const ScreeningRecommender: React.FC = () => {
                 <h3 className="font-semibold">{screening.name}</h3>
                 <p className="text-gray-600">{screening.description}</p>
                 <p className="text-sm mt-2">Frequency: {screening.frequency}</p>
+                <div className="mt-2">
+                  <ScreeningInfoModal screening={screening} />
+                </div>
               </div>
             ))}
           </div>

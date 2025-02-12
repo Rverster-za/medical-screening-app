@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { Gender, RiskFactors, MedicalConditions, UserInput } from '../types/types';
 import { getRecommendedScreenings, Screening } from '../data/screenings';
 import ScreeningInfoModal from './ScreeningInfoModal';
+import PDFGenerator from './PDFGenerator';
 
 const defaultRiskFactors: RiskFactors = {
   alcohol: false,
@@ -186,11 +187,7 @@ export const ScreeningRecommender: React.FC = () => {
         </button>
       </form>
 
-      {recommendations.length > 0 && (
-        <div className="mt-8">
-          <h2 className="text-xl font-bold mb-4">Recommended Screenings:</h2>
-          <div className="space-y-4">
-            {recommendations.map(screening => (
+{recommendations.map(screening => (
               <div key={screening.id} className="border p-4 rounded">
                 <h3 className="font-semibold">{screening.name}</h3>
                 <p className="text-gray-600">{screening.description}</p>
@@ -201,6 +198,7 @@ export const ScreeningRecommender: React.FC = () => {
               </div>
             ))}
           </div>
+          {recommendations.length > 0 && <PDFGenerator screenings={recommendations} userInput={userInput} />}
         </div>
       )}
     </div>

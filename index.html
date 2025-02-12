@@ -1,38 +1,13 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="/vite.svg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Medical Screening Assistant</title>
-    
-    <!-- React and ReactDOM -->
-    <script src="https://unpkg.com/react@18/umd/react.development.js"></script>
-    <script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
-    
-    <!-- Babel for JSX -->
-    <script src="https://unpkg.com/babel-standalone@6/babel.min.js"></script>
-    
-    <!-- Tailwind CSS -->
-    <script src="https://cdn.tailwindcss.com"></script>
-    
-    <!-- PDF-lib for PDF generation -->
-    <script src="https://unpkg.com/pdf-lib@1.17.1/dist/pdf-lib.min.js"></script>
-</head>
-<body>
+  </head>
+  <body>
     <div id="root"></div>
-
-    <!-- Import our React components -->
-    <script type="text/babel" src="src/types/types.ts"></script>
-    <script type="text/babel" src="src/data/screenings.ts"></script>
-    <script type="text/babel" src="src/components/ScreeningInfoModal.tsx"></script>
-    <script type="text/babel" src="src/components/PDFGenerator.tsx"></script>
-    <script type="text/babel" src="src/components/ScreeningRecommender.tsx"></script>
-    <script type="text/babel" src="src/App.tsx"></script>
-    
-    <!-- Initialize the app -->
-    <script type="text/babel">
-        const root = ReactDOM.createRoot(document.getElementById('root'));
-        root.render(<App />);
-    </script>
-</body>
+    <script type="module" src="/src/main.tsx"></script>
+  </body>
 </html>

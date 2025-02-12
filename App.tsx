@@ -1,5 +1,5 @@
-import React from "react";
-import { ScreeningRecommender } from "./components/ScreeningRecommender";
+import React from 'react';
+import { ScreeningRecommender } from './components/ScreeningRecommender';
 
 const App: React.FC = () => {
   return (

@@ -1,8 +1,38 @@
 import React, { useState } from 'react';
 import { Gender, RiskFactors, MedicalConditions, UserInput } from '../types/types';
 import { getRecommendedScreenings, Screening } from '../data/screenings';
+import { adultVaccinations } from '../data/screenings';  // Add this line
 import ScreeningInfoModal from './ScreeningInfoModal';
 import PDFGenerator from './PDFGenerator';
+
+const VaccinationSection: React.FC = () => {
+  return (
+    <div className="mt-8">
+      <h3 className="text-xl font-bold mb-4">Recommended Vaccinations</h3>
+      <div className="space-y-4">
+        {adultVaccinations.map(vaccine => (
+          <div key={vaccine.id} className="bg-white p-4 rounded-lg shadow">
+            <h4 className="text-lg font-semibold">{vaccine.name}</h4>
+            <p className="text-gray-600 mt-1">{vaccine.description}</p>
+            <p className="text-gray-600 mt-2">
+              <span className="font-medium">Schedule: </span>
+              {vaccine.schedule}
+            </p>
+            {vaccine.fundedGroups && (
+              <div className="mt-2">
+                <span className="font-medium">Funded for: </span>
+                <span className="text-gray-600">{vaccine.fundedGroups.join(', ')}</span>
+              </div>
+            )}
+            {vaccine.notes && (
+              <p className="text-sm text-gray-500 mt-2">{vaccine.notes}</p>
+            )}
+          </div>
+        ))}
+      </div>
+    </div>
+  );
+};
 
 const defaultRiskFactors: RiskFactors = {
   alcohol: false,
@@ -187,20 +217,20 @@ export const ScreeningRecommender: React.FC = () => {
         </button>
       </form>
 
-{recommendations.map(screening => (
-              <div key={screening.id} className="border p-4 rounded">
-                <h3 className="font-semibold">{screening.name}</h3>
-                <p className="text-gray-600">{screening.description}</p>
-                <p className="text-sm mt-2">Frequency: {screening.frequency}</p>
-                <div className="mt-2">
-                  <ScreeningInfoModal screening={screening} />
-                </div>
-              </div>
-            ))}
+      <VaccinationSection />  {/* Add this new line here */}
+
+      {recommendations.map(screening => (
+        <div key={screening.id} className="border p-4 rounded">
+          <h3 className="font-semibold">{screening.name}</h3>
+          <p className="text-gray-600">{screening.description}</p>
+          <p className="text-sm mt-2">Frequency: {screening.frequency}</p>
+          <div className="mt-2">
+            <ScreeningInfoModal screening={screening} />
           </div>
-          {recommendations.length > 0 && <PDFGenerator screenings={recommendations} userInput={userInput} />}
         </div>
-      )}
+      ))}
+
+      {recommendations.length > 0 && <PDFGenerator screenings={recommendations} userInput={userInput} />}
     </div>
   );
 };

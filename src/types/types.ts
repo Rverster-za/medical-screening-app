@@ -1,6 +1,5 @@
 // Basic input types
 export type Gender = 'male' | 'female' | 'non-binary';
-
 export type AgeRange = {
   min: number;
   max: number;
@@ -35,4 +34,29 @@ export interface UserInput {
   gender: Gender;
   riskFactors: RiskFactors;
   medicalConditions: MedicalConditions;
+}
+
+// Screening and Vaccination interfaces
+export interface ScreeningGuideline {
+  id: string;
+  name: string;
+  description: string;
+  ageRange: {
+    min: number;
+    max: number | null;
+  };
+  frequency: string;
+  gender?: Gender;
+  riskFactors: string[];
+  preparationInstructions?: string;
+}
+
+export interface Vaccination {
+  id: string;
+  name: string;
+  description: string;
+  targetGroups: string[];
+  schedule: string;
+  fundedGroups?: string[];
+  notes?: string;
 }

@@ -50,7 +50,10 @@ export const ScreeningRecommender: React.FC = () => {
     }));
   };
 
-  const handleRiskFactorChange = (factor: keyof RiskFactors | keyof RiskFactors['familyHistory'], isFamily = false) => {
+  const handleRiskFactorChange = (
+    factor: RiskFactorKeys | FamilyHistoryKeys,
+    isFamily = false
+  ) => {
     setUserInput(prev => ({
       ...prev,
       riskFactors: isFamily
@@ -58,12 +61,12 @@ export const ScreeningRecommender: React.FC = () => {
             ...prev.riskFactors,
             familyHistory: {
               ...prev.riskFactors.familyHistory,
-              [factor]: !prev.riskFactors.familyHistory[factor as keyof RiskFactors['familyHistory']],
+              [factor]: !prev.riskFactors.familyHistory[factor as FamilyHistoryKeys],
             },
           }
         : {
             ...prev.riskFactors,
-            [factor]: !prev.riskFactors[factor as keyof RiskFactors],
+            [factor]: !prev.riskFactors[factor as RiskFactorKeys],
           },
     }));
   };
@@ -126,39 +129,56 @@ export const ScreeningRecommender: React.FC = () => {
           </div>
         </div>
 
-       <div>
-  <h3 className="text-lg font-medium text-gray-900 mb-4">Risk Factors</h3>
-  <div className="space-y-2">
-    {(['alcohol', 'smoking', 'illicitDrugs'] as RiskFactorKeys[]).map(factor => (
-      <label key={factor} className="flex items-center">
-        <input
-          type="checkbox"
-          checked={userInput.riskFactors[factor]}
-          onChange={() => handleRiskFactorChange(factor)}
-          className="rounded border-gray-300 text-blue-600 focus:ring-blue-500"
-        />
-        <span className="ml-2">{factor.replace(/([A-Z])/g, ' $1').toLowerCase()}</span>
-      </label>
-    ))}
-  </div>
-</div>
+        <div>
+          <h3 className="text-lg font-medium text-gray-900 mb-4">Risk Factors</h3>
+          <div className="space-y-2">
+            {(['alcohol', 'smoking', 'illicitDrugs'] as RiskFactorKeys[]).map(factor => (
+              <label key={factor} className="flex items-center">
+                <input
+                  type="checkbox"
+                  checked={userInput.riskFactors[factor]}
+                  onChange={() => handleRiskFactorChange(factor)}
+                  className="rounded border-gray-300 text-blue-600 focus:ring-blue-500"
+                />
+                <span className="ml-2">{factor.replace(/([A-Z])/g, ' $1').toLowerCase()}</span>
+              </label>
+            ))}
+          </div>
+        </div>
 
-<div>
-  <h3 className="text-lg font-medium text-gray-900 mb-4">Family History</h3>
-  <div className="space-y-2">
-    {(['heartDisease', 'cancer', 'earlyDeath', 'geneticDisorders'] as FamilyHistoryKeys[]).map(factor => (
-      <label key={factor} className="flex items-center">
-        <input
-          type="checkbox"
-          checked={userInput.riskFactors.familyHistory[factor]}
-          onChange={() => handleRiskFactorChange(factor as FamilyHistoryKeys, true)}
-          className="rounded border-gray-300 text-blue-600 focus:ring-blue-500"
-        />
-        <span className="ml-2">{factor.replace(/([A-Z])/g, ' $1').toLowerCase()}</span>
-      </label>
-    ))}
-  </div>
-</div>
+        <div>
+          <h3 className="text-lg font-medium text-gray-900 mb-4">Family History</h3>
+          <div className="space-y-2">
+            {(['heartDisease', 'cancer', 'earlyDeath', 'geneticDisorders'] as FamilyHistoryKeys[]).map(factor => (
+              <label key={factor} className="flex items-center">
+                <input
+                  type="checkbox"
+                  checked={userInput.riskFactors.familyHistory[factor]}
+                  onChange={() => handleRiskFactorChange(factor as FamilyHistoryKeys, true)}
+                  className="rounded border-gray-300 text-blue-600 focus:ring-blue-500"
+                />
+                <span className="ml-2">{factor.replace(/([A-Z])/g, ' $1').toLowerCase()}</span>
+              </label>
+            ))}
+          </div>
+        </div>
+
+        <div>
+          <h3 className="text-lg font-medium text-gray-900 mb-4">Medical Conditions</h3>
+          <div className="space-y-2">
+            {Object.keys(defaultMedicalConditions).map(condition => (
+              <label key={condition} className="flex items-center">
+                <input
+                  type="checkbox"
+                  checked={userInput.medicalConditions[condition as keyof MedicalConditions]}
+                  onChange={() => handleMedicalConditionChange(condition as keyof MedicalConditions)}
+                  className="rounded border-gray-300 text-blue-600 focus:ring-blue-500"
+                />
+                <span className="ml-2">{condition.replace(/([A-Z])/g, ' $1').toLowerCase()}</span>
+              </label>
+            ))}
+          </div>
+        </div>
 
         <button
           type="submit"

@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Gender, RiskFactors, MedicalConditions, UserInput } from '../types/types';
+import { Gender, RiskFactors, MedicalConditions, UserInput, RiskFactorKeys, FamilyHistoryKeys } from '../types/types';
 import { getRecommendedScreenings, Screening } from '../data/screenings';
 import ScreeningInfoModal from './ScreeningInfoModal';
 import PDFGenerator from './PDFGenerator';
@@ -126,28 +126,23 @@ export const ScreeningRecommender: React.FC = () => {
           </div>
         </div>
 
-        <div>
-          <h3 className="text-lg font-medium text-gray-900 mb-4">Risk Factors</h3>
-          <div className="space-y-2">
-            {(Object.keys(defaultRiskFactors) as Array<keyof RiskFactors>).map(factor => {
-              if (factor !== 'familyHistory') {
-                return (
-                  <label key={factor} className="flex items-center">
-                    <input
-                      type="checkbox"
-                      checked={userInput.riskFactors[factor]}
-                      onChange={() => handleRiskFactorChange(factor)}
-                      className="rounded border-gray-300 text-blue-600 focus:ring-blue-500"
-                    />
-                    <span className="ml-2">{factor.replace(/([A-Z])/g, ' $1').toLowerCase()}</span>
-                  </label>
-                );
-              }
-              return null;
-            })}
-          </div>
-        </div>
-
+       <div>
+  <h3 className="text-lg font-medium text-gray-900 mb-4">Risk Factors</h3>
+  <div className="space-y-2">
+    {(['alcohol', 'smoking', 'illicitDrugs'] as RiskFactorKeys[]).map(factor => (
+      <label key={factor} className="flex items-center">
+        <input
+          type="checkbox"
+          checked={userInput.riskFactors[factor]}
+          onChange={() => handleRiskFactorChange(factor)}
+          className="rounded border-gray-300 text-blue-600 focus:ring-blue-500"
+        />
+        <span className="ml-2">{factor.replace(/([A-Z])/g, ' $1').toLowerCase()}</span>
+      </label>
+    ))}
+  </div>
+</div>
+        
         <div>
           <h3 className="text-lg font-medium text-gray-900 mb-4">Family History</h3>
           <div className="space-y-2">
@@ -165,22 +160,22 @@ export const ScreeningRecommender: React.FC = () => {
           </div>
         </div>
 
-        <div>
-          <h3 className="text-lg font-medium text-gray-900 mb-4">Medical Conditions</h3>
-          <div className="space-y-2">
-            {Object.keys(defaultMedicalConditions).map(condition => (
-              <label key={condition} className="flex items-center">
-                <input
-                  type="checkbox"
-                  checked={userInput.medicalConditions[condition as keyof MedicalConditions]}
-                  onChange={() => handleMedicalConditionChange(condition as keyof MedicalConditions)}
-                  className="rounded border-gray-300 text-blue-600 focus:ring-blue-500"
-                />
-                <span className="ml-2">{condition.replace(/([A-Z])/g, ' $1').toLowerCase()}</span>
-              </label>
-            ))}
-          </div>
-        </div>
+<div>
+  <h3 className="text-lg font-medium text-gray-900 mb-4">Family History</h3>
+  <div className="space-y-2">
+    {(['heartDisease', 'cancer', 'earlyDeath', 'geneticDisorders'] as FamilyHistoryKeys[]).map(factor => (
+      <label key={factor} className="flex items-center">
+        <input
+          type="checkbox"
+          checked={userInput.riskFactors.familyHistory[factor]}
+          onChange={() => handleRiskFactorChange(factor as FamilyHistoryKeys, true)}
+          className="rounded border-gray-300 text-blue-600 focus:ring-blue-500"
+        />
+        <span className="ml-2">{factor.replace(/([A-Z])/g, ' $1').toLowerCase()}</span>
+      </label>
+    ))}
+  </div>
+</div>
 
         <button
           type="submit"

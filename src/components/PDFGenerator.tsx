@@ -90,10 +90,10 @@ export const PDFGenerator: React.FC<PDFGeneratorProps> = ({ screenings, userInpu
     let yOffset = 250;
     screenings.forEach((screening, index) => {
       // Add new page if needed
-      if (yOffset > height - 50) {
-        const newPage = pdfDoc.addPage();
-        yOffset = 50;
-      }
+    if (yOffset > height - 50) {
+    page = pdfDoc.addPage();
+    yOffset = 50;
+    }
 
       page.drawText(`${index + 1}. ${screening.name}`, {
         x: 50,

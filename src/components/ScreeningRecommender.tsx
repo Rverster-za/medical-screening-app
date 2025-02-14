@@ -151,14 +151,14 @@ export const ScreeningRecommender: React.FC = () => {
         <div>
           <h3 className="text-lg font-medium text-gray-900 mb-4">Family History</h3>
           <div className="space-y-2">
-            {Object.keys(defaultRiskFactors.familyHistory).map(factor => (
-              <label key={factor} className="flex items-center">
-                <input
-                  type="checkbox"
-                  checked={userInput.riskFactors.familyHistory[factor as keyof RiskFactors['familyHistory']]}
-                  onChange={() => handleRiskFactorChange(factor, true)}
-                  className="rounded border-gray-300 text-blue-600 focus:ring-blue-500"
-                />
+{Object.keys(defaultRiskFactors.familyHistory).map(factor => (
+  <label key={factor} className="flex items-center">
+    <input
+      type="checkbox"
+      checked={userInput.riskFactors.familyHistory[factor as keyof RiskFactors['familyHistory']]}
+      onChange={() => handleRiskFactorChange(factor as keyof RiskFactors['familyHistory'], true)}
+      className="rounded border-gray-300 text-blue-600 focus:ring-blue-500"
+    />
                 <span className="ml-2">{factor.replace(/([A-Z])/g, ' $1').toLowerCase()}</span>
               </label>
             ))}
